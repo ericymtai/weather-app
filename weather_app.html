@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Loading Weather JSONP Using jQuery</title>
+</head>
+<body>
+
+<h1>Loading Weather JSONP</h1>
+<div></div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+<script>
+  $(document).ready(function(){
+      var target = $("div");
+      var url = "http://api.openweathermap.org/data/2.5/weather" +
+      // "?q=vagur" +
+      "?id=6167865" +
+      "&appid=f540a77674a01bda518e2fee5b394280" +
+      "&units=metric" +
+      "&callback=?";
+
+      $.getJSON( url, function(data) {
+
+          if (first!== data.rain) {
+            console.log(data.rain);
+            $.each(data.rain, function(key, value) {
+                  console.log(key, value);
+                  first = "Rain Volume in last " + key +"our had obtained " +value +"in";
+            });
+
+          } else {
+
+            first = "No Rain";
+          }
+
+        var content = $("<p>City: "  +
+                  data.name +
+                  "</p><p>Temperature: " +
+                  data.main.temp +
+                  "&deg;C</p><p>Description: " +
+                  data.weather[0].description +
+                  ", and Current Wind speed is " +
+                  data.wind.speed +
+                  "knot</p><br/><img src='http://openweathermap.org/img/w/" +
+                  data.weather[0].icon +
+                  ".png'</img><p> Rain: " +
+                  first +
+                  "</p>"
+                   ).appendTo(target);
+      });
+});
+
+</script>
+</body>
+</html>
