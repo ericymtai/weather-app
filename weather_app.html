@@ -11,6 +11,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 
 <script>
+
+"use strict";
   $(document).ready(function(){
       var target = $("div");
       var url = "http://api.openweathermap.org/data/2.5/weather" +
@@ -34,23 +36,26 @@
             console.log(data.rain);
             $.each(data.rain, function(key, value) {
                   console.log(key, value);
-                  first = "Rain Volume in last " + key +"our had obtained " +value +"mm";
+                  first = "Precipitation Volume for last " + key +"our had been " +value +"mm";
             });
 
           } else  {
 
-            first = "Current No Rain";
+            first = "No Rain";
           }
 
         var content = $("<p>City: "  +
                   data.name +
                   "</p><p>Temperature: " +
                   data.main.temp +
-                  "&deg;C</p><p>Description: " +
+                  "&deg;C</p><p>Description: Current weather is " +
                   data.weather[0].description +
                   ", Wind speed is " +
                   data.wind.speed +
-                  "knot, " +
+                  "	meter&#47;sec., " +
+                  "Humidity is " +
+                  data.main.humidity +
+                  "&#x25;, " +
                   first +
                   "</p><br/><img src='http://openweathermap.org/img/w/" +
                   data.weather[0].icon +
