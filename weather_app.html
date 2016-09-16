@@ -15,21 +15,26 @@
       var target = $("div");
       var url = "http://api.openweathermap.org/data/2.5/weather" +
       // "?q=vagur" +
-      "?id=6167865" +
+       "?q=trtonto,ca" +
+      // "?id=6167865" +
       "&appid=f540a77674a01bda518e2fee5b394280" +
       "&units=metric" +
       "&callback=?";
 
+      var first = '';
+
+
+
       $.getJSON( url, function(data) {
 
-          if (first!== data.rain) {
+          if (first !== data.rain) {
             console.log(data.rain);
             $.each(data.rain, function(key, value) {
                   console.log(key, value);
-                  first = "Rain Volume in last " + key +"our had obtained " +value +"in";
+                  first = "Rain Volume in last " + key +"our had obtained " +value +"mm";
             });
 
-          } else {
+          } else if(first !== undefined) {
 
             first = "No Rain";
           }
