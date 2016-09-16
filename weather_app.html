@@ -14,29 +14,32 @@
   $(document).ready(function(){
       var target = $("div");
       var url = "http://api.openweathermap.org/data/2.5/weather" +
-      // "?q=vagur" +
+      // "?q=mumbai" +
        "?q=trtonto,ca" +
       // "?id=6167865" +
       "&appid=f540a77674a01bda518e2fee5b394280" +
       "&units=metric" +
       "&callback=?";
 
-      var first = '';
+
 
 
 
       $.getJSON( url, function(data) {
 
-          if (first !== data.rain) {
+        var first = data;
+
+          if ( data.rain != null) {
+
             console.log(data.rain);
             $.each(data.rain, function(key, value) {
                   console.log(key, value);
                   first = "Rain Volume in last " + key +"our had obtained " +value +"mm";
             });
 
-          } else if(first !== undefined) {
+          } else  {
 
-            first = "No Rain";
+            first = "Current No Rain";
           }
 
         var content = $("<p>City: "  +
@@ -45,13 +48,14 @@
                   data.main.temp +
                   "&deg;C</p><p>Description: " +
                   data.weather[0].description +
-                  ", and Current Wind speed is " +
+                  ", Wind speed is " +
                   data.wind.speed +
-                  "knot</p><br/><img src='http://openweathermap.org/img/w/" +
-                  data.weather[0].icon +
-                  ".png'</img><p> Rain: " +
+                  "knot, " +
                   first +
-                  "</p>"
+                  "</p><br/><img src='http://openweathermap.org/img/w/" +
+                  data.weather[0].icon +
+                  ".png'</img>"
+
                    ).appendTo(target);
       });
 });
