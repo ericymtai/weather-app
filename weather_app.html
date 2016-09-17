@@ -22,6 +22,7 @@
       var target = $("div");
       var url = "http://api.openweathermap.org/data/2.5/weather" +
        "?q=Toronto,ca" +
+      // The below two lines are for tesing the rain from other countries
       // "?q=Mumbai" +
       // "?q=London,uk" +
       "&appid=f540a77674a01bda518e2fee5b394280" +
@@ -30,19 +31,19 @@
 
       $.getJSON( url, function(data) {
 
-        var first = data;
+        var checkRain = data;
+
+        // Check the country has rain or not
+        // If it's rain, display the volume
 
           if ( data.rain != null) {
 
-            // console.log(data.rain);
             $.each(data.rain, function(key, value) {
-                  // console.log(key, value);
-                  first = "Precipitation Volume for last " + key +"our had been " +value +"mm";
+                  checkRain = "Precipitation Volume for last <span>" + key +"our</span> is <span>" +value +"</span>mm";
             });
-
+        // If it isn't, display "No rain"
           } else  {
-
-            first = "No Rain";
+            checkRain = "<span>No Rain</span>";
           }
 
         var content = $("<p>City: <span>"  +
@@ -55,9 +56,9 @@
                   data.wind.speed +
                   "</span>	meter&#47;sec., Humidity is <span>" +
                   data.main.humidity +
-                  "</span>&#x25;, <span>" +
-                  first +
-                  "</span></p><img src='http://openweathermap.org/img/w/" +
+                  "</span>&#x25;, " +
+                  checkRain +
+                  ".</p><img src='http://openweathermap.org/img/w/" +
                   data.weather[0].icon +
                   ".png'</img>"
 
