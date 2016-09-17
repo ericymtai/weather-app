@@ -3,6 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <title>Loading Weather JSONP Using jQuery</title>
+  <style media="screen">
+    span {
+      color: red;
+    }
+  </style>
 </head>
 <body>
 
@@ -12,20 +17,16 @@
 
 <script>
 
-"use strict";
   $(document).ready(function(){
+
       var target = $("div");
       var url = "http://api.openweathermap.org/data/2.5/weather" +
-      // "?q=mumbai" +
-       "?q=trtonto,ca" +
-      // "?id=6167865" +
+       "?q=Toronto,ca" +
+      // "?q=Mumbai" +
+      // "?q=London,uk" +
       "&appid=f540a77674a01bda518e2fee5b394280" +
       "&units=metric" +
       "&callback=?";
-
-
-
-
 
       $.getJSON( url, function(data) {
 
@@ -33,9 +34,9 @@
 
           if ( data.rain != null) {
 
-            console.log(data.rain);
+            // console.log(data.rain);
             $.each(data.rain, function(key, value) {
-                  console.log(key, value);
+                  // console.log(key, value);
                   first = "Precipitation Volume for last " + key +"our had been " +value +"mm";
             });
 
@@ -44,20 +45,19 @@
             first = "No Rain";
           }
 
-        var content = $("<p>City: "  +
+        var content = $("<p>City: <span>"  +
                   data.name +
-                  "</p><p>Temperature: " +
+                  "</span></p><p>Temperature: <span>" +
                   data.main.temp +
-                  "&deg;C</p><p>Description: Current weather is " +
+                  "</span>&deg;C</p><p>Description: Current weather is <span>" +
                   data.weather[0].description +
-                  ", Wind speed is " +
+                  "</span>, Wind speed is <span>" +
                   data.wind.speed +
-                  "	meter&#47;sec., " +
-                  "Humidity is " +
+                  "</span>	meter&#47;sec., Humidity is <span>" +
                   data.main.humidity +
-                  "&#x25;, " +
+                  "</span>&#x25;, <span>" +
                   first +
-                  "</p><br/><img src='http://openweathermap.org/img/w/" +
+                  "</span></p><img src='http://openweathermap.org/img/w/" +
                   data.weather[0].icon +
                   ".png'</img>"
 
